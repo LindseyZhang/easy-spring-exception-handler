@@ -12,24 +12,19 @@ public class BusinessException extends RuntimeException {
     private final Object modelInfo;
 
     public BusinessException(ErrorCode errorCode) {
-        this.errorCode = errorCode;
-        this.httpStatus = DEFAULT_HTTP_STATUS;
-        this.modelInfo = null;
+        this(errorCode, DEFAULT_HTTP_STATUS, null);
     }
 
     public BusinessException(ErrorCode errorCode, HttpStatus httpStatus) {
-        this.errorCode = errorCode;
-        this.httpStatus = httpStatus;
-        this.modelInfo = null;
+        this(errorCode, httpStatus, null);
     }
 
     public BusinessException(ErrorCode errorCode, Object modelInfo) {
-        this.errorCode = errorCode;
-        this.httpStatus = HttpStatus.BAD_REQUEST;
-        this.modelInfo = modelInfo;
+        this(errorCode, DEFAULT_HTTP_STATUS, modelInfo);
     }
 
     public BusinessException(ErrorCode errorCode, HttpStatus httpStatus, Object modelInfo) {
+        super(errorCode.getErrorMessage());
         this.errorCode = errorCode;
         this.httpStatus = httpStatus;
         this.modelInfo = modelInfo;
