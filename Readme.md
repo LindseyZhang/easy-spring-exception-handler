@@ -27,12 +27,13 @@ modelInfo allow you to put any thing that you want to throw in the exception, wh
 
 #### How to use it
 1. add dependency  
-   pull this project and build it locally. run
+   find the pre build jar in build/libs or pull this project and build it locally. run
    ```$xslt
    ./gradlew build
    ```
-   then find the jar file under path build/libs/global-exception-handler-0.0.1.jar,
-   copy this jar file to libs/ folder(if not exist then create one) directly under your project root path.
+   then find the jar file under path build/libs/global-exception-handler-0.0.1.jar.
+   
+   copy this jar file to libs/ folder(if not exist then create one) directly under your project's root path.
    add dependency in gradle with
    ```$xslt
     implementation  files('libs/global-exception-handler-0.0.1.jar')
