@@ -122,5 +122,7 @@ if the key can't find in messages.properties, then the default message will be t
 In this case the  PRODUCT_EXCEED_VOLUME exception's error message will be product_exceed_volume.
  
 the messages.properties without the locale info will use as default. 
-if you want to resolve message against specific locale, like china, add a new properties file named messages_zh_CN.propetties.
-[see here for more detail](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#spring-core)  
+if you want to resolve message against specific language and country, named the file like 
+messages_[lang](https://en.wikipedia.org/wiki/ISO_639-1)_[countryCode](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).properties.
+For example, for chinese, add a new properties file named messages_zh_CN.properties under resource package.
+[see here for more i18n information](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#spring-core)  
