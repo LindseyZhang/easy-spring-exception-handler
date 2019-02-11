@@ -86,3 +86,41 @@ which will be used as the message return in response body when an exception occu
     in @ComponentScan, you should add this exception handler's package to the scan path, which is 
     com.zlp.util.exception, and the application's root package, in my case is com.test.demo 
     or any other your scan path. 
+    
+#### support for i18n
+This simple library also support i18n, you can simply add messages.properties 
+under resource package to use it. 
+
+eg: with ErrorKey class
+```$java
+    import com.zlp.util.exception.ErrorCode;
+
+    public enum ErrorKey implements ErrorCode {
+        PRODUCT_ALREADY_EXIST("product_already_exist"),
+        PRODUCT_EXCEED_VOLUME("product_exceed_volume");
+
+        private String errorMessage;
+
+        ErrorKey(String errorMsg) {
+            this.errorMessage = errorMsg;
+        }
+
+        @Override
+        public String getErrorMessage() {
+          return errorMessage;
+        }
+    }
+```
+the messages.properties may look like this.
+
+```$xslt
+product_already_exist=product already exist!
+```
+
+the ErrorMessage value will be use as the key in messages.properties, 
+if the key can't find in messages.properties, then the default message will be the errorMessage. 
+In this case the  PRODUCT_EXCEED_VOLUME exception's error message will be product_exceed_volume.
+ 
+the messages.properties without the locale info will use as default. 
+if you want to resolve message against specific locale, like china, add a new properties file named messages_zh_CN.propetties.
+[see here for more detail](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#spring-core)  
