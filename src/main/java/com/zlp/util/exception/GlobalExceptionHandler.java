@@ -34,8 +34,8 @@ public class GlobalExceptionHandler {
 
 	private ExceptionDetail toExceptionDetail(BusinessException e, Locale locale) {
 		return new ExceptionDetail(e.getHttpStatus().value(),
-				e.getErrorCode().toString(),
-				messageSource.getMessage(e.getErrorCode().getErrorMessage(), null, locale),
+				e.getErrorCode(),
+				messageSource.getMessage(e.getErrorCode(), null, locale),
 				e.getModelInfo());
 	}
 

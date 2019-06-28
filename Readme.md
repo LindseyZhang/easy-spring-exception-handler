@@ -9,17 +9,15 @@ but away you from boilerplate exception handling code.
 
 #### Main class
 
-ErrorCode: error code interface, which you should implement to define your custom error code.
- 
 BusinessException: our exception class. we provide four constructor.
 ```$xslt
-    public BusinessException(ErrorCode errorCode);
+    public BusinessException(String errorCode);
 
-    public BusinessException(ErrorCode errorCode, HttpStatus httpStatus);
+    public BusinessException(String errorCode, HttpStatus httpStatus);
 
-    public BusinessException(ErrorCode errorCode, Object modelInfo);
+    public BusinessException(String errorCode, Object modelInfo);
 
-    public BusinessException(ErrorCode errorCode, HttpStatus httpStatus, Object modelInfo);
+    public BusinessException(String errorCode, HttpStatus httpStatus, Object modelInfo);
 ```
 if HttpStatus is not provided, then the default HttpStatus is 400:BAD_REQUEST.
 
@@ -39,25 +37,12 @@ modelInfo allow you to put any thing that you want to throw in the exception, wh
     implementation  files('libs/global-exception-handler-0.0.1.jar')
    ```
    
-2. add you own custom error class, which should implement ErrorCode interface and override the getErrorMessage function,
-which will be used as the message return in response body when an exception occured.
+2. add you own errorCode enum class.
 
     ```$java
-    import com.zlp.util.exception.ErrorCode;
 
-    public enum ErrorKey implements ErrorCode {
-        PRODUCT_ALREADY_EXIST("product already exist.");
-
-        private String errorMessage;
-
-        ErrorKey(String errorMsg) {
-            this.errorMessage = errorMsg;
-        }
-
-        @Override
-        public String getErrorMessage() {
-          return errorMessage;
-        }
+    public enum ErrorCode {
+        PRODUCT_ALREADY_EXIST;
     }
     ```
 3. throw a BusinessException in Code.
@@ -66,7 +51,7 @@ which will be used as the message return in response body when an exception occu
     
             Product oldProduct = productRepository.findByName(product.getName());
             if (oldProduct != null) {
-                throw new BusinessException(ErrorKey.PRODUCT_ALREADY_EXIST, oldProduct);
+                throw new BusinessException(ErrorCode.PRODUCT_ALREADY_EXIST.name(), oldProduct);
             }
             productRepository.save(product);
         }
@@ -93,28 +78,15 @@ under resource package to use it.
 
 eg: with ErrorKey class
 ```$java
-    import com.zlp.util.exception.ErrorCode;
 
-    public enum ErrorKey implements ErrorCode {
-        PRODUCT_ALREADY_EXIST("product_already_exist"),
-        PRODUCT_EXCEED_VOLUME("product_exceed_volume");
-
-        private String errorMessage;
-
-        ErrorKey(String errorMsg) {
-            this.errorMessage = errorMsg;
-        }
-
-        @Override
-        public String getErrorMessage() {
-          return errorMessage;
-        }
+    public enum ErrorCode {
+        PRODUCT_ALREADY_EXIST;
     }
 ```
 the messages.properties may look like this.
 
 ```$xslt
-product_already_exist=product already exist!
+PRODUCT_ALREADY_EXIST=product already exist!
 ```
 
 the ErrorMessage value will be use as the key in messages.properties, 

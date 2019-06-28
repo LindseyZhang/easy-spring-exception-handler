@@ -7,24 +7,24 @@ import org.springframework.http.HttpStatus;
 public class BusinessException extends RuntimeException {
     public static final HttpStatus DEFAULT_HTTP_STATUS = HttpStatus.BAD_REQUEST;
 
-    private final ErrorCode errorCode;
+    private final String errorCode;
     private final HttpStatus httpStatus;
     private final Object modelInfo;
 
-    public BusinessException(ErrorCode errorCode) {
+    public BusinessException(String errorCode) {
         this(errorCode, DEFAULT_HTTP_STATUS, null);
     }
 
-    public BusinessException(ErrorCode errorCode, HttpStatus httpStatus) {
+    public BusinessException(String errorCode, HttpStatus httpStatus) {
         this(errorCode, httpStatus, null);
     }
 
-    public BusinessException(ErrorCode errorCode, Object modelInfo) {
+    public BusinessException(String errorCode, Object modelInfo) {
         this(errorCode, DEFAULT_HTTP_STATUS, modelInfo);
     }
 
-    public BusinessException(ErrorCode errorCode, HttpStatus httpStatus, Object modelInfo) {
-        super(errorCode.getErrorMessage());
+    public BusinessException(String errorCode, HttpStatus httpStatus, Object modelInfo) {
+        super(errorCode);
         this.errorCode = errorCode;
         this.httpStatus = httpStatus;
         this.modelInfo = modelInfo;
