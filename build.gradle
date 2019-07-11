@@ -1,22 +1,89 @@
 buildscript {
-	repositories {
-		mavenCentral()
-	}
+    repositories {
+        mavenCentral()
+    }
 }
 
 apply plugin: 'java'
 apply plugin: 'java-library'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
 
 group = 'com.zlp'
-version = '0.0.1'
+version = '1.0.0'
 sourceCompatibility = '1.8'
 
 repositories {
-	mavenCentral()
-	jcenter()
+    mavenCentral()
+    jcenter()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web:2.1.2.RELEASE'
-	compileOnly 'org.projectlombok:lombok:1.18.4'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.1.2.RELEASE'
+    implementation 'org.projectlombok:lombok:1.18.4'
+}
+
+task sourceJar(type: Jar) {
+    classifier "sources"
+    from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar) {
+    classifier "javadoc"
+    from javadoc
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            group = "com.github.lindseyzhang"
+
+            from components.java
+            artifact javadocJar
+            artifact sourceJar
+
+            pom {
+                name = 'easy spring exception handler'
+                description = 'A plug and play global exception handler on spring web to throw custom exception'
+                url = 'https://github.com/LindseyZhang/easy-spring-exception-handler'
+                developers {
+                    developer {
+                        id = 'linpingZhang'
+                        name = 'linping zhang'
+                        email = 'lindseyzlp@hotmail.com'
+                    }
+                }
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'http://www.opensource.org/licenses/mit-license.php'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/LindseyZhang/easy-spring-exception-handler.git'
+                    developerConnection = 'scm:git:ssh://github.com/LindseyZhang/easy-spring-exception-handler.git'
+                    url = 'http://github.com/LindseyZhang/easy-spring-exception-handler'
+                }
+            }
+
+        }
+    }
+
+    repositories {
+        maven {
+            credentials {
+                username ossrhUsername
+                password ossrhPassword
+            }
+            if ( project.version.endsWith('-SNAPSHOT') ) {
+                url = "https://oss.sonatype.org/content/repositories/snapshots"
+            } else {
+                url = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
 }
