@@ -24,23 +24,23 @@ if HttpStatus is not provided, then the default HttpStatus is 400:BAD_REQUEST.
 modelInfo allow you to put any thing that you want to throw in the exception, which will show in the exception body as an extra. 
 
 #### How to use it
-1. add dependency  
-   find the pre build jar in build/libs or pull this project and build it locally. run
+1. add dependency.  
+   in gradle  
    ```$xslt
-   ./gradlew build
+	  compile('com.github.lindseyzhang:easy-spring-exception-handler:1.0.0')
    ```
-   then find the jar file under path build/libs/global-exception-handler-0.0.1.jar.
-   
-   copy this jar file to libs/ folder(if not exist then create one) directly under your project's root path.
-   add dependency in gradle with
+   in maven
    ```$xslt
-    implementation  files('libs/global-exception-handler-0.0.1.jar')
-   ```
+   <dependency>
+       <groupId>com.github.lindseyzhang</groupId>
+       <artifactId>easy-spring-exception-handler</artifactId>
+       <version>1.0.0</version>
+   </dependency>
+    ```
    
 2. add you own errorCode enum class.
 
     ```$java
-
     public enum ErrorCode {
         PRODUCT_ALREADY_EXIST;
     }
@@ -78,7 +78,6 @@ under resource package to use it.
 
 eg: with ErrorKey class
 ```$java
-
     public enum ErrorCode {
         PRODUCT_ALREADY_EXIST;
     }
