@@ -29,7 +29,9 @@ public class GlobalExceptionHandler {
 					.body(toExceptionDetail(businessException, locale));
 		}
 
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ExceptionDetail(500,
+				HttpStatus.INTERNAL_SERVER_ERROR.name(),
+				e.getMessage(), null));
 	}
 
 	private ExceptionDetail toExceptionDetail(BusinessException e, Locale locale) {
