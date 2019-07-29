@@ -27,14 +27,14 @@ modelInfo allow you to put any thing that you want to throw in the exception, wh
 1. add dependency.  
    in gradle  
    ```$xslt
-	  compile('com.github.lindseyzhang:easy-spring-exception-handler:1.0.0')
+	  compile('com.github.lindseyzhang:easy-spring-exception-handler:2.0.0')
    ```
    in maven
    ```$xslt
    <dependency>
        <groupId>com.github.lindseyzhang</groupId>
        <artifactId>easy-spring-exception-handler</artifactId>
-       <version>1.0.0</version>
+       <version>2.0.0</version>
    </dependency>
     ```
    
